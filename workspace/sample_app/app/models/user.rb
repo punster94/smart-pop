@@ -12,10 +12,6 @@ class User < ActiveRecord::Base
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end
-
-  def poop
-    puts 'lol!'
-  end
   
   def User.digest(token)
     Digest::SHA1.hexdigest(token.to_s)

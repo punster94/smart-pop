@@ -11,7 +11,82 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140609184321) do
+ActiveRecord::Schema.define(version: 20150206220934) do
+
+  create_table "classes", force: true do |t|
+    t.integer  "teacher_id"
+    t.integer  "university_id"
+    t.string   "course_name"
+    t.string   "course_number"
+    t.string   "section_number"
+    t.string   "enrollment_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "multiple_choice_options", force: true do |t|
+    t.integer  "question_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "questions", force: true do |t|
+    t.integer  "quiz_id"
+    t.text     "question_text"
+    t.string   "type"
+    t.binary   "picture",                limit: 10485760
+    t.integer  "multiple_choice_answer"
+    t.text     "input_text_answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "quizzes", force: true do |t|
+    t.integer  "class_id"
+    t.integer  "teacher_id"
+    t.string   "title"
+    t.string   "start_time"
+    t.string   "end_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "responses", force: true do |t|
+    t.integer  "question_id"
+    t.integer  "student_id"
+    t.integer  "multiple_choice_answer"
+    t.text     "text_answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "students", force: true do |t|
+    t.string   "email"
+    t.string   "password"
+    t.string   "name"
+    t.string   "sub_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teachers", force: true do |t|
+    t.string   "sub_type"
+    t.string   "name"
+    t.string   "email"
+    t.string   "password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "universities", force: true do |t|
+    t.string   "name"
+    t.string   "sub_type"
+    t.string   "email"
+    t.string   "password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"
