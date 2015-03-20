@@ -1,0 +1,35 @@
+Objectives
+
+Get data tables working – Aaron
+Build preliminary models 
+Build controllers for models that need views (prerequisite above)
+Make a view/form for quiz creation and editing
+Create a view for taking a quiz
+Create response view
+Create logic for creating different user types on sign up
+Create view and logic for changing subscription type
+Create View for statistic page (graphing gym) –  find graphing gym for statistic page
+Create course view 
+Course registration view (enrollment code entry form)
+Create view for taking quiz
+Create Authorization confirmation page views
+Create header and footer views for navigation
+View for real-time quiz statistic + graph (or at least start/end button)
+
+Essential:
+1)
+2)
+3)
+4)
+5)
+6)
+7)
+8)
+9)
+10)
+11)
+12)
+13)
+14)
+15)
+Non-Essential:
