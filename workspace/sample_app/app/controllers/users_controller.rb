@@ -8,10 +8,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params.except(:account_type))
     if @user.save
+      User.account_types[user_params[:account_type]].create(user_id: @user.id)
       sign_in @user
-      flash[:success] = "Welcome to the Sample App!"
+      flash[:success] = "Welcome to QuizQuick!"
       redirect_to @user
     else
       render 'new'
@@ -21,6 +22,6 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :account_type)
     end
 end

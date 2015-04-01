@@ -11,3 +11,14 @@
  *= require_self
  *= require_tree .
  */
+.centered{
+  text-align: center;
+}
+
+.option_button{
+  padding-bottom: 10px;
+}
+
+.fixed_nav{
+  position: fixed;
+}

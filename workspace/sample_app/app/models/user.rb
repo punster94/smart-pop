@@ -16,6 +16,13 @@ class User < ActiveRecord::Base
   def User.digest(token)
     Digest::SHA1.hexdigest(token.to_s)
   end
+  
+  def self.account_types
+    { 'Student' => Student, 'Teacher' => Teacher , 'University' => University }
+  end
+  
+  def account_type
+  end
 
   private
 

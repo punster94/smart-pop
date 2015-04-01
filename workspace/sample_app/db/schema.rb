@@ -62,28 +62,19 @@ ActiveRecord::Schema.define(version: 20150206220934) do
   end
 
   create_table "students", force: true do |t|
-    t.string   "email"
-    t.string   "password"
-    t.string   "name"
-    t.string   "sub_type"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "teachers", force: true do |t|
-    t.string   "sub_type"
-    t.string   "name"
-    t.string   "email"
-    t.string   "password"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "universities", force: true do |t|
-    t.string   "name"
-    t.string   "sub_type"
-    t.string   "email"
-    t.string   "password"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -95,6 +86,7 @@ ActiveRecord::Schema.define(version: 20150206220934) do
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "remember_token"
+    t.string   "sub_type"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

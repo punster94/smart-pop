@@ -1,28 +1,19 @@
 class AddInitialTablesToSchema < ActiveRecord::Migration
   def change
     create_table :universities do |u|
-      u.string :name
-      u.string :sub_type
-      u.string :email
-      u.string :password
-      
+      u.integer :user_id
+        
       u.timestamps
     end
     
     create_table :teachers do |t|
-      t.string :sub_type
-      t.string :name
-      t.string :email
-      t.string :password
+      t.integer :user_id
       
       t.timestamps
     end
     
     create_table :students do |s|
-      s.string :email
-      s.string :password
-      s.string :name
-      s.string :sub_type
+      s.integer :user_id
       
       s.timestamps
     end
@@ -74,5 +65,7 @@ class AddInitialTablesToSchema < ActiveRecord::Migration
       
       o.timestamps
     end
+    
+    add_column :users, :sub_type, :string
   end
 end
