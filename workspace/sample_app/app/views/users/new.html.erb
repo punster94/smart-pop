@@ -12,12 +12,23 @@
       <%= f.text_field :email %>
 
       <%= f.label :password %>
-      <%= f.text_field :password %>
+      <%= f.password_field :password %>
 
-      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.label :password_confirmation, "Password Confirmation" %>
       <%= f.password_field :password_confirmation %>
 
-      <%= f.submit "Create my account", class: "bn btn-large btn-primary" %>
+      <%= f.label :account_type, "Account Type" %>
+      <table>
+        <% User.account_types.keys.each do |type| %>
+          <tr>
+            <td class='option_button'><%= f.radio_button :account_type, type %></td>
+            <td><%= f.label "#{type}" %></td>
+          </tr>
+        <% end %>
+      </table></br>
+      <div class='centered'>
+        <%= f.submit "Create my account", class: "bn btn-large btn-primary" %>
+      </div>
     <% end %>
   </div>
 </div>
