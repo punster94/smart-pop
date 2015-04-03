@@ -25,7 +25,14 @@
             <td><%= f.label "#{type}" %></td>
           </tr>
         <% end %>
-      </table></br>
+      </table>
+      <table>
+        <tr>
+          <td><%= f.label :sub, 'Disable ads?' %></td>
+          <td class='option_button'><%= f.check_box :sub %></td>
+        </tr>
+      </table>
+      </br>
       <div class='centered'>
         <%= f.submit "Create my account", class: "bn btn-large btn-primary" %>
       </div>

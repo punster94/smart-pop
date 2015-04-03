@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20150206220934) do
 
-  create_table "classes", force: true do |t|
+  create_table "courses", force: true do |t|
     t.integer  "teacher_id"
     t.integer  "university_id"
     t.string   "course_name"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20150206220934) do
   end
 
   create_table "quizzes", force: true do |t|
-    t.integer  "class_id"
+    t.integer  "course_id"
     t.integer  "teacher_id"
     t.string   "title"
     t.string   "start_time"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 20150206220934) do
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "remember_token"
-    t.string   "sub_type"
+    t.boolean  "sub",             default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
