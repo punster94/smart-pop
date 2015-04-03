@@ -18,7 +18,7 @@ class AddInitialTablesToSchema < ActiveRecord::Migration
       s.timestamps
     end
   
-    create_table :classes do |c|
+    create_table :courses do |c|
       c.integer :teacher_id
       c.integer :university_id
       c.string :course_name
@@ -50,7 +50,7 @@ class AddInitialTablesToSchema < ActiveRecord::Migration
     end
     
     create_table :quizzes do |q|
-      q.integer :class_id
+      q.integer :course_id
       q.integer :teacher_id
       q.string :title
       q.string :start_time
@@ -66,6 +66,6 @@ class AddInitialTablesToSchema < ActiveRecord::Migration
       o.timestamps
     end
     
-    add_column :users, :sub_type, :string
+    add_column :users, :sub, :boolean, default: false
   end
 end
