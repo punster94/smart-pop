@@ -11,7 +11,7 @@
   ["Jefferson", "1801-03-03", "1809-03-03"]
 ] %>
   
-  <%= pie_chart ({"farts" => 23, "butts" => 15}); %>
+  <%= column_chart ({"A" => 23, "B" => 15, "C" => 20,  "D" => 30}), min: 0, max: 100 %>
 
   
   <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
