@@ -1,0 +1,2 @@
+class StatisticsPageController < ApplicationController
+end

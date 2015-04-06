@@ -4,6 +4,15 @@
   <h2>
     This is the home page for the QuizQuick App!
   </h2>
+  <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+  <%= timeline [
+  ["Washington", "1789-04-29", "1797-03-03"],
+  ["Adams", "1797-03-03", "1801-03-03"],
+  ["Jefferson", "1801-03-03", "1809-03-03"]
+] %>
+  
+  <%= pie_chart ({"farts" => 23, "butts" => 15}); %>
 
+  
   <%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary" %>
 </div>
