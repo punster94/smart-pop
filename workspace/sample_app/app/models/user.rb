@@ -23,6 +23,15 @@ class User < ActiveRecord::Base
   
   def account_type
   end
+  
+  def account
+    s = Student.where(user_id: self.id).first
+    t = Teacher.where(user_id: self.id).first
+    u = University.where(user_id: self.id).first
+    return s if s
+    return t if t
+    u
+  end
 
   private
 

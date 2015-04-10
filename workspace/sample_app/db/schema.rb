@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206220934) do
+ActiveRecord::Schema.define(version: 20150410001639) do
 
   create_table "courses", force: true do |t|
     t.integer  "teacher_id"
@@ -57,6 +57,14 @@ ActiveRecord::Schema.define(version: 20150206220934) do
     t.integer  "student_id"
     t.integer  "multiple_choice_answer"
     t.text     "text_answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "student_course_pairings", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "course_id"
+    t.boolean  "validated",  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
