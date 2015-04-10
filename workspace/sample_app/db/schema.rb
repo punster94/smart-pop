@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410001639) do
+ActiveRecord::Schema.define(version: 20150410212613) do
 
   create_table "courses", force: true do |t|
     t.integer  "teacher_id"
-    t.integer  "university_id"
     t.string   "course_name"
     t.string   "course_number"
     t.string   "section_number"
@@ -79,6 +78,7 @@ ActiveRecord::Schema.define(version: 20150410001639) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "university_id"
   end
 
   create_table "universities", force: true do |t|
