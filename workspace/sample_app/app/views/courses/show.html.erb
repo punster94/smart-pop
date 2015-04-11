@@ -1,5 +1,5 @@
 <% provide(:title, "Quiz List") %>
-<% if current_user.account.id == @course.teacher_id %>
+<% if current_user.id == @course.teacher.user.id %>
   <%= link_to "Edit Course", "/courses/#{@course.id}/edit", class: "btn btn-large float-right" %>
 <% end %>
 <h1>Quiz List</h1>

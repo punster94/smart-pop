@@ -21,6 +21,11 @@ class CoursesController < ApplicationController
     end
   end
   
+  def destroy
+    Course.find(params[:id]).destroy
+    redirect_to current_user
+  end
+  
   def create
     @course = Course.new(course_params)
     @course.teacher_id = current_user.account.id
