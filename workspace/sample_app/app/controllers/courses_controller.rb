@@ -4,6 +4,23 @@ class CoursesController < ApplicationController
     @course = Course.new
   end
   
+  def edit
+    @course = Course.find(params[:id])
+  end
+  
+  def show
+    @course = Course.find(params[:id])
+  end
+  
+  def update
+    @course = Course.find(params[:id])
+    if @course.update_attributes(course_params)
+      redirect_to @course
+    else
+      render 'edit'
+    end
+  end
+  
   def create
     @course = Course.new(course_params)
     @course.teacher_id = current_user.account.id

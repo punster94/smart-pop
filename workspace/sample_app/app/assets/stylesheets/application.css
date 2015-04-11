@@ -18,6 +18,10 @@
   text-align: center;
 }
 
+.float-right{
+  float: right;
+}
+
 .option_button{
   padding-bottom: 10px;
 }
