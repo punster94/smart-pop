@@ -5,4 +5,7 @@ class StudentCoursePairing < ActiveRecord::Base
     self.validated = true
     self.save
   end
+  
+  def enrollment_code
+  end
 end

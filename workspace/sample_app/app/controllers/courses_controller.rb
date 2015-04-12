@@ -29,6 +29,7 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     @course.teacher_id = current_user.account.id
+    @course.teacher_name = Teacher.find(@course.teacher_id).user.name
     university_courses = current_user.account.university.courses
     if university_courses.where(course_number: @course.course_number, section_number: @course.section_number).blank?
       if @course.save
