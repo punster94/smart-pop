@@ -1,19 +1,10 @@
 class Course < ActiveRecord::Base
-  def pairings
-    StudentCoursePairing.where(course_id: id)
-  end
+  belongs_to :teacher
+  has_many :student_course_pairings
+  has_many :students, through: :student_course_pairings
   
-  def students
-    @students ||= find_students
-  end
-  
-  private
-  
-  def find_students
-    student_list = []
-    pairings.each do |p|
-      student_list.push(Student.find(p.student_id))
-    end
-    @students = student_list
-  end
+  validates :course_name, presence: true
+  validates :course_number, presence: true
+  validates :section_number, presence: true
+  validates :enrollment_code, presence: true
 end

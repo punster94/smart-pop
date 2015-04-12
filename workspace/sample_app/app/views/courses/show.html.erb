@@ -1,19 +1,5 @@
-<% provide(:title, "course list") %>
-
-<table id='courseList' class="display compact">
-  <thead>
-    <tr>
-      <td><b>Course Name</b></td>
-      <td><b>Course Number</b></td>
-    </tr>
-  </thead>
-</table>
-
-<%= javascript_tag do %>
-  $(document).ready( function () {
-    $('#courseList').DataTable({
-      data: <%= Course.select("course_name, course_number").to_json.html_safe %>,
-      columns: [{data: 'course_name'}, {data: 'course_number'}]
-    });
-  });
+<% provide(:title, "Quiz List") %>
+<% if current_user.id == @course.teacher.user.id %>
+  <%= link_to "Edit Course", "/courses/#{@course.id}/edit", class: "btn btn-large float-right" %>
 <% end %>
+<h1>Quiz List</h1>
