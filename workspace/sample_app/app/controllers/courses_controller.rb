@@ -1,9 +1,10 @@
 class CoursesController < ApplicationController
   include SessionsHelper
   before_action :logged_in_user, only: [:edit, :update]
-  before_action :teacher_only, only: [:new, :edit]
+  before_action :teacher_only, only: [:new, :create, :edit]
   before_action :correct_user, only: [:edit]
   def new
+    redirect_to '/register_university' unless current_user.account.university_id
     @course = Course.new
   end
   

@@ -49,4 +49,5 @@
 <% elsif @user.account.class == Student %>
   <%= link_to "Enroll in New Course", '/courses', class: "btn btn-large btn-primary" %>
 <% else %>
+<%= link_to "Verify Teacher", '/verify', class: "btn btn-large btn-success" %>
 <% end %>

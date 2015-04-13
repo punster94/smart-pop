@@ -4,14 +4,19 @@ class TeachersController < ApplicationController
   before_action :teacher_only, only: [:register]
   
   def verify
-    @student_course_pairing = StudentCoursePairing.find(params[:id])
-    @student_course_pairing.validate
-    redirect_to '/student_course_pairings'
+    @teacher = Teacher.find(params[:teacher_id])
+    @teacher.validated = true
+    if @teacher.save
+      flash[:success] = "Teacher Verified!"
+    else
+      flash[:error] = "Verification Failed."
+    end
+    redirect_to '/verify'
   end
   
   def register
     @teacher = current_user.account
-    @teacher.university_id = params[:university_id]
+    @teacher.university_id = params[:id]
     @teacher.validated = false
     if @teacher.save
       flash[:success] = "Registered under university!"

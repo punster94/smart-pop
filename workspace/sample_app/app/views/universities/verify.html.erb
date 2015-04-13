@@ -1,0 +1,36 @@
+<% provide(:title, "Confirm Registrations") %>
+<h1>Confirm Teacher Registrations</h1>
+<table id='teachers' class="display compact">
+  <thead>
+    <tr>
+      <td><b>Teacher Name</b></td>
+      <td><b>Verify</b></td>
+    </tr>
+  </thead>
+</table>
+
+<%= javascript_tag do %>
+  $(document).ready( function () {
+    $('#teachers').DataTable({
+      <% data = [] %>
+      <% current_user.account.teachers.each do |teacher| %>
+        <% pair = {} %>
+        <% pair[:teacher_name] = teacher.user.name %>
+        <% pair[:validated] = teacher.validated %>
+        <% pair[:id] = teacher.id %>
+        <% data.push(pair) %>
+      <% end %>
+      data: <%= data.to_json.html_safe %>,
+      columns: [{data: 'teacher_name'}, {data: 'teacher_name'}],
+      fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+        if(aData.validated){
+          $('td:eq(1)', nRow).html('<div class="btn btn-small btn-info disabled" href="">Verified</div>');
+        }
+        else {
+          $('td:eq(1)', nRow).html('<a class="btn btn-small btn-success" href="/teachers/' + aData.id + '/verify">Verify</a>');
+        }
+        return nRow;
+      }
+    });
+  });
+<% end %>
