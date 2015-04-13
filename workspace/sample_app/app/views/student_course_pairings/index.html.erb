@@ -1,0 +1,42 @@
+<% provide(:title, "Registrations") %>
+<h1>Verify Students</h1>
+<table id='pairings' class="display compact">
+  <thead>
+    <tr>
+      <td><b>Student Name</b></td>
+      <td><b>Course Name</b></td>
+      <td><b>Course Number</b></td>
+      <td><b>Section Number</b></td>
+      <td><b>Verification</b></td>
+    </tr>
+  </thead>
+</table>
+
+<%= javascript_tag do %>
+  $(document).ready( function () {
+    $('#pairings').DataTable({
+      <% data = [] %>
+      <% current_user.account.student_course_pairings.each do |pairing| %>
+        <% pair = {} %>
+        <% pair[:student_name] = pairing.student.user.name %>
+        <% pair[:course_name] = pairing.course.course_name %>
+        <% pair[:course_number] = pairing.course.course_number %>
+        <% pair[:section_number] = pairing.course.section_number %>
+        <% pair[:verification] = pairing.validated %>
+        <% pair[:id] = pairing.id %>
+        <% data.push(pair) %>
+      <% end %>
+      data: <%= data.to_json.html_safe %>,
+      columns: [{data: 'student_name'}, {data: 'course_name'}, {data: 'course_number'}, {data: 'section_number'}, {data: 'verification'}],
+      fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+        if(aData.verification){
+          $('td:eq(4)', nRow).html('<div class="btn btn-small btn-info disabled" href="">Verified</div>');
+        }
+        else{
+          $('td:eq(4)', nRow).html('<a class="btn btn-small btn-success" href="/student_course_pairings/' + aData.id + '/verify">Verify</a>');
+        }
+        return nRow;
+      }
+    });
+  });
+<% end %>

@@ -1,5 +1,6 @@
 class StudentCoursePairingsController < ApplicationController
   include SessionsHelper
+  before_action :teacher_only, only: [:index, :verify]
   def new
     @student_course_pairing = StudentCoursePairing.new
     @student_course_pairing.student_id = current_user.account.id
@@ -17,6 +18,12 @@ class StudentCoursePairingsController < ApplicationController
     else
       render @student_course_pairing.course
     end
+  end
+  
+  def verify
+    @student_course_pairing = StudentCoursePairing.find(params[:id])
+    @student_course_pairing.validate
+    redirect_to '/student_course_pairings'
   end
   
   def destroy

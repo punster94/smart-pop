@@ -1,5 +1,8 @@
 class CoursesController < ApplicationController
   include SessionsHelper
+  before_action :logged_in_user, only: [:edit, :update]
+  before_action :teacher_only, only: [:new, :edit]
+  before_action :correct_user, only: [:edit]
   def new
     @course = Course.new
   end
@@ -48,5 +51,9 @@ class CoursesController < ApplicationController
 
     def course_params
       params.require(:course).permit(:course_name, :course_number, :section_number, :enrollment_code)
+    end
+  
+    def correct_user
+      redirect_to current_user unless current_user.account == Course.find(params[:id]).teacher
     end
 end
