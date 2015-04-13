@@ -5,7 +5,7 @@
     <%= form_for(@student_course_pairing) do |f| %>
       <%= f.label :enrollment_code, "Enrollment Code" %>
       <%= f.text_field :enrollment_code %>
-
+      <%= hidden_field_tag 'course_id', params[:course_id] %>
       <div class='centered'>
         <%= f.submit "Enroll", class: "bn btn-large btn-primary" %>
       </div>

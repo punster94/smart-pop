@@ -14,6 +14,7 @@ SampleApp::Application.routes.draw do
   match '/courses', to: 'courses#show'       ,  via: 'get'
   match '/register', to: 'courses#index',       via: 'get'
   get 'student_course_pairings/new/:course_id', to: 'student_course_pairings#new'
+  delete 'student_course_pairings/:course_id/removepairing', to: 'student_course_pairings#destroy'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
