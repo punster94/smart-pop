@@ -3,6 +3,7 @@ SampleApp::Application.routes.draw do
   resources :courses
   resources :student_course_pairings
   resources :sessions, only: [:new, :create, :destroy]
+  resources :teachers, only: [:show]
   root 'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
@@ -13,7 +14,6 @@ SampleApp::Application.routes.draw do
   match '/signup',  to: 'users#new'           , via: 'get'
   match '/courses', to: 'courses#show'       ,  via: 'get'
   match '/verify',  to: 'universities#verify',  via: 'get'
-  match '/register_university', to: 'teachers#register', via: 'get'
   get 'student_course_pairings/new/:course_id', to: 'student_course_pairings#new'
   delete 'student_course_pairings/:course_id/removepairing', to: 'student_course_pairings#destroy'
   get 'student_course_pairings/:id/verify', to: 'student_course_pairings#verify'

@@ -45,9 +45,9 @@
 <% if @user.account.class == Teacher %>
   <%= link_to "Create New Course", new_course_path, class: "btn btn-large btn-primary" %>
   <%= link_to "Verify Students", '/student_course_pairings', class: "btn btn-large btn-success" %>
-  <%= link_to "Register Under University", '/register_university', class: "btn btn-large btn-warning" %>
+<%= link_to "Register Under University", '/teachers/register', class: "btn btn-large btn-warning" %>
 <% elsif @user.account.class == Student %>
   <%= link_to "Enroll in New Course", '/courses', class: "btn btn-large btn-primary" %>
 <% else %>
-<%= link_to "Verify Teacher", '/verify', class: "btn btn-large btn-success" %>
+<%= link_to "Verify Teachers", '/verify', class: "btn btn-large btn-success" %>
 <% end %>

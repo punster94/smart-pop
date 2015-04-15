@@ -16,14 +16,18 @@ class TeachersController < ApplicationController
   
   def register
     @teacher = current_user.account
-    @teacher.university_id = params[:id]
+    @teacher.university_id = params[:university_id]
     @teacher.validated = false
     if @teacher.save
       flash[:success] = "Registered under university!"
     else
       flash[:error] = "Registration failed."
     end
-    redirect_to 'register_university'
+    redirect_to '/teachers/register'
+  end
+  
+  def show
+    @teacher = current_user.account
   end
   
 end
