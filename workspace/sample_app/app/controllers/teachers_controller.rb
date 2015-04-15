@@ -1,7 +1,7 @@
 class TeachersController < ApplicationController
   include SessionsHelper
   before_action :university_only, only: [:verify]
-  before_action :teacher_only, only: [:register]
+  before_action :teacher_only, only: [:register, :show]
   
   def verify
     @teacher = Teacher.find(params[:teacher_id])
