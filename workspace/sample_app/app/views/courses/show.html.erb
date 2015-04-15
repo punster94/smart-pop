@@ -29,7 +29,8 @@
       <% end %>
       ],
       fnRowCallback: function( nRow, aData, iDisplayIndex ) {
-        var now = new Date("<%= DateTime.now %>");
+        <% Time.zone = "America/New_York" %>
+        var now = new Date("<%= Time.zone.utc_to_local(DateTime.now) %>");
         var start = new Date(aData.start_time);
         var end = new Date(aData.end_time);
         <% if current_user.id == @course.teacher.user.id %>

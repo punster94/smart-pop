@@ -25,11 +25,11 @@ class QuizzesController < ApplicationController
   end
   
   def manual_start
+    Time.zone = "America/New_York"
     @quiz = Quiz.find(params[:id])
-    @quiz.start_time = DateTime.now
-    if @quiz.end_time < DateTime.now
-      @quiz.end_time = DateTime.now + 30.minutes
-      flash[:success] = "Thirty minutes added to duration of unplanned quiz."
+    @quiz.start_time = Time.zone.utc_to_local(DateTime.now) - 5.seconds
+    if @quiz.end_time < Time.zone.utc_to_local(DateTime.now)
+      @quiz.end_time = Time.zone.utc_to_local(DateTime.now) + 30.minutes
     else
       flash[:success] = "Quiz Started!"
     end
@@ -38,8 +38,9 @@ class QuizzesController < ApplicationController
   end
   
   def manual_end
+    Time.zone = "America/New_York"
     @quiz = Quiz.find(params[:id])
-    @quiz.end_time = DateTime.now
+    @quiz.end_time = Time.zone.utc_to_local(DateTime.now) - 5.seconds
     @quiz.save
     flash[:success] = "Quiz Ended."
     redirect_to "/courses/#{@quiz.course_id}"
