@@ -1,5 +1,6 @@
 class MultipleChoiceOptionController < ApplicationController
   include SessionsHelper
+  before_action :teacher_only, only: [:new, :create, :edit, :update]
   def new
     @multiple_choice_option = MultipleChoiceOption.new
   end
@@ -12,6 +13,15 @@ class MultipleChoiceOptionController < ApplicationController
       @multiple_choice_option.course_id = nil
     end
     @multiple_choice_option.save
+  end
+  
+  def edit
+    @multiple_choice_option = MultipleChoiceOption.find(params[:id])
+  end
+  
+  def update
+    @multiple_choice_option = MultipleChoiceOption.find(params[:id])
+    @multiple_choice_option.update_attributes(multiple_choice_option_params)
   end
   
   private

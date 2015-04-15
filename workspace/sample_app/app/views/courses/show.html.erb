@@ -7,9 +7,9 @@
 <table id='quizList' class="display compact">
   <thead>
     <tr>
-      <td><b>Course Name</b></td>
-      <td><b>Course Number</b></td>
-      <td><b>Section Number</b></td>
+      <td><b>Title</b></td>
+      <td><b>Start Time</b></td>
+      <td><b>End Time</b></td>
     </tr>
   </thead>
 </table>
@@ -17,10 +17,10 @@
 <%= javascript_tag do %>
   $(document).ready( function () {
     $('#quizList').DataTable({
-      data: <%= @course.quizzes.select("title, start_time, end_time, course_id").to_json.html_safe %>,
+      data: <%= @course.quizzes.select("title, start_time, end_time, course_id, quizzes.id").to_json.html_safe %>,
       columns: [{data: 'title'}, {data: 'start_time'}, {data: 'end_time'}],
       fnRowCallback: function( nRow, aData, iDisplayIndex ) {
-        $('td:eq(0)', nRow).html('<a href="/courses/' + aData.course_id + '">' + aData.title + '</a>');
+        $('td:eq(0)', nRow).html('<a href="/quizzes/' + aData.id + '/edit">' + aData.title + '</a>');
       }
     });
   });

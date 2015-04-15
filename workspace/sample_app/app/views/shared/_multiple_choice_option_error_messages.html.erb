@@ -1,0 +1,12 @@
+<% if multiple_choice_option.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-error">
+      The form contains <%= pluralize(multiple_choice_option.errors.count, "error") %>
+    </div>
+    <ul>
+      <% multiple_choice_option.errors.full_messages.each do |msg| %>
+      <li>* <%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

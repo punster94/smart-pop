@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   include SessionsHelper
+  before_action :teacher_only, only: [:new, :create, :edit, :update]
   def new
     @question = Question.new
   end
@@ -8,6 +9,15 @@ class QuestionsController < ApplicationController
     @question = Question.new(quiz_params)
     @question.type = 'Multiple Choice'
     @question.save
+  end
+  
+  def edit
+    @question = Question.find(params[:id])
+  end
+  
+  def update
+    @question = Question.find(params[:id])
+    @question.update_attributes(question_params)
   end
   
   private
