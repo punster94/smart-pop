@@ -33,9 +33,9 @@
       fnRowCallback: function( nRow, aData, iDisplayIndex ) {
         $('td:eq(0)', nRow).html('<a href="/courses/' + aData.id + '">' + aData.course_name + '</a>');
         <% if @user.account.class == Student %>
-          $('td:eq(3)', nRow).html('<a href="/courses/' + aData.id + '">Remove</a>');
+          $('td:eq(3)', nRow).html('<a class="btn btn-danger btn-small" href="/student_course_pairings/' + aData.id + '/removepairing" data-method="delete">Remove</a>');
         <% else %>
-          $('td:eq(3)', nRow).html('<a href="/courses/' + aData.id + '" data-method="delete">Delete</a>');
+          $('td:eq(3)', nRow).html('<a class="btn btn-danger btn-small" href="/courses/' + aData.id + '" data-method="delete">Delete</a>');
         <% end %>
         return nRow;
       }
@@ -44,4 +44,10 @@
 <% end %>
 <% if @user.account.class == Teacher %>
   <%= link_to "Create New Course", new_course_path, class: "btn btn-large btn-primary" %>
+  <%= link_to "Verify Students", '/student_course_pairings', class: "btn btn-large btn-success" %>
+<%= link_to "Register Under University", '/teachers/register', class: "btn btn-large btn-warning" %>
+<% elsif @user.account.class == Student %>
+  <%= link_to "Enroll in New Course", '/courses', class: "btn btn-large btn-primary" %>
+<% else %>
+<%= link_to "Verify Teachers", '/verify', class: "btn btn-large btn-success" %>
 <% end %>

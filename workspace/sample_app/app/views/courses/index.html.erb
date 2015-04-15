@@ -1,0 +1,33 @@
+<% provide(:title, "course list") %>
+
+<table id='courseList' class="display compact">
+  <thead>
+    <tr>
+      <td><b>Teacher Name</b></td>
+      <td><b>Course Name</b></td>
+      <td><b>Course Number</b></td>
+      <td><b>Section Number</b></td>
+      <% if current_user.account.class == Student %>
+        <td><b>Enroll</b></td>
+      <% end %>
+    </tr>
+  </thead>
+</table>
+
+<%= javascript_tag do %>
+  $(document).ready( function () {
+    $('#courseList').DataTable({
+      data: <%= Course.select("teacher_name, course_name, course_number, section_number, courses.id").to_json.html_safe %>,
+      columns: [{data: 'teacher_name'}, {data: 'course_name'}, {data: 'course_number'}, {data: 'section_number'},
+      <% if current_user.account.class == Student %>
+        {data: 'course_name'}],
+        fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+          $('td:eq(4)', nRow).html('<a class="btn btn-small btn-primary" href="/student_course_pairings/new/' + aData.id + '">Enroll</a>');
+          return nRow;
+        }
+      <% else %>
+        ]
+      <% end %>
+    });
+  });
+<% end %>

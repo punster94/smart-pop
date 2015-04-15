@@ -1,0 +1,39 @@
+<% provide(:title, "Register for University") %>
+<h1>Register Under Your University</h1>
+<table id='universities' class="display compact">
+  <thead>
+    <tr>
+      <td><b>University Name</b></td>
+      <td><b>Register</b></td>
+    </tr>
+  </thead>
+</table>
+
+<%= javascript_tag do %>
+  $(document).ready( function () {
+    $('#universities').DataTable({
+      <% data = [] %>
+      <% University.all.each do |university| %>
+        <% pair = {} %>
+        <% pair[:university_name] = university.user.name %>
+        <% pair[:university_id] = university.id %>
+        <% pair[:id] = current_user.account.id %>
+        <% data.push(pair) %>
+      <% end %>
+      data: <%= data.to_json.html_safe %>,
+      columns: [{data: 'university_name'}, {data: 'university_name'}],
+      fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+        if(<%= current_user.account.validated %> && aData.university_id == <%= (current_user.account.university_id) ? current_user.account.university_id : 0 %>){
+          $('td:eq(1)', nRow).html('<div class="btn btn-small btn-success disabled" href="">Registered</div>');
+        }
+        else if(aData.university_id == <%= (current_user.account.university_id) ? current_user.account.university_id : 0 %>){
+          $('td:eq(1)', nRow).html('<div class="btn btn-small btn-warning disabled">Awaiting Response</div>');
+        }
+        else {
+          $('td:eq(1)', nRow).html('<a class="btn btn-small btn-info" href="/register/' + aData.university_id + '">Register</a>');
+        }
+        return nRow;
+      }
+    });
+  });
+<% end %>

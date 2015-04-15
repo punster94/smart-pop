@@ -1,6 +1,10 @@
 class CoursesController < ApplicationController
   include SessionsHelper
+  before_action :logged_in_user, only: [:edit, :update]
+  before_action :teacher_only, only: [:new, :create, :edit]
+  before_action :correct_user, only: [:edit]
   def new
+    redirect_to '/register_university' unless current_user.account.university_id
     @course = Course.new
   end
   
@@ -29,6 +33,7 @@ class CoursesController < ApplicationController
   def create
     @course = Course.new(course_params)
     @course.teacher_id = current_user.account.id
+    @course.teacher_name = Teacher.find(@course.teacher_id).user.name
     university_courses = current_user.account.university.courses
     if university_courses.where(course_number: @course.course_number, section_number: @course.section_number).blank?
       if @course.save
@@ -47,5 +52,9 @@ class CoursesController < ApplicationController
 
     def course_params
       params.require(:course).permit(:course_name, :course_number, :section_number, :enrollment_code)
+    end
+  
+    def correct_user
+      redirect_to current_user unless current_user.account == Course.find(params[:id]).teacher
     end
 end
