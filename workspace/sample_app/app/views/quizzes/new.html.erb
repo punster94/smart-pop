@@ -11,10 +11,11 @@
 
       <%= f.label :end_time %>
       <%= f.datetime_field :end_time %>
+      <%= hidden_field_tag 'course_id', params[:course_id] %>
       
       <%= render 'question_panel', f: f %>
       <div class='centered'>
-        <%= f.submit "Create quiz", class: "bn btn-large btn-success" %>
+        <%= f.submit "Create quiz", class: "btn btn-large btn-success options-complete" %>
       </div>
     <% end %>
   </div>

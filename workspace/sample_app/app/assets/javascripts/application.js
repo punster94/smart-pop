@@ -19,4 +19,10 @@
 //= require turbolinks
 //= require_tree .
 $(document).ready(function(){
+  $('.options-complete').click(function(){
+    $('.answer_button').each(function(){
+      var value = $(this).parent().children('.answer').val();
+      $(this).val(value);
+    });
+  });
 });

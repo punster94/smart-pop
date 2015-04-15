@@ -1,5 +1,6 @@
 class Course < ActiveRecord::Base
   belongs_to :teacher
+  has_many :quizzes, dependent: :destroy
   has_many :student_course_pairings, dependent: :destroy
   has_many :students, through: :student_course_pairings
   

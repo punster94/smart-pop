@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413033425) do
+ActiveRecord::Schema.define(version: 20150415045540) do
 
   create_table "courses", force: true do |t|
     t.integer  "teacher_id"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20150413033425) do
     t.text     "question_text"
     t.string   "type"
     t.binary   "picture",                limit: 10485760
-    t.integer  "multiple_choice_answer"
+    t.string   "multiple_choice_answer"
     t.text     "input_text_answer"
     t.datetime "created_at"
     t.datetime "updated_at"

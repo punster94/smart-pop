@@ -6,4 +6,8 @@ class Question < ActiveRecord::Base
   def self.types
     [ 'Multiple Choice', 'Short Answer' ]
   end
+  
+  def correct_multiple_choice_option
+    self.multiple_choice_options.where(description: multiple_choice_answer).first
+  end
 end

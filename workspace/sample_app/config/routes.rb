@@ -20,6 +20,7 @@ SampleApp::Application.routes.draw do
   get 'student_course_pairings/:id/verify', to: 'student_course_pairings#verify'
   get 'register/:university_id', to: 'teachers#register'
   get 'teachers/:teacher_id/verify', to: 'teachers#verify'
+  get 'quizzes/new/:course_id', to: 'quizzes#new'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

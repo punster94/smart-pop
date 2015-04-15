@@ -1,8 +1,8 @@
 <div class="form-inline panel-set">
   <%= multiple_choice_options_form.label :description, "Choice" %>
-  <%= multiple_choice_options_form.text_field :description %>
-  <%= f.label :multiple_choice_answer, "Correct Answer" %>
-  <%= f.radio_button :multiple_choice_answer %>
+  <%= multiple_choice_options_form.text_field :description, class: 'answer' %>
+  <%= f.label :multiple_choice_answer_text, "Correct Answer" %>
+  <%= f.radio_button :multiple_choice_answer, '', class: 'answer_button' %>
   <div class="centered">
     </br>
     <%= multiple_choice_options_form.link_to_remove 'Remove Option', class: 'btn btn-danger btn-small' %>
