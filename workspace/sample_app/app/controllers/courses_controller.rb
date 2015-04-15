@@ -13,6 +13,7 @@ class CoursesController < ApplicationController
   end
   
   def show
+    sleep(0.25)
     @course = Course.find(params[:id])
   end
   

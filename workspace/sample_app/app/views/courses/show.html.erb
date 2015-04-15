@@ -10,6 +10,11 @@
       <td><b>Title</b></td>
       <td><b>Start Time</b></td>
       <td><b>End Time</b></td>
+      <% if current_user.id == @course.teacher.user.id %>
+        <td><b>Manual Start</b></td>
+      <% elsif current_user.account.class == Student %>
+        <td><b>Availability</b></td>
+      <% end %>
     </tr>
   </thead>
 </table>
@@ -18,9 +23,31 @@
   $(document).ready( function () {
     $('#quizList').DataTable({
       data: <%= @course.quizzes.select("title, start_time, end_time, course_id, quizzes.id").to_json.html_safe %>,
-      columns: [{data: 'title'}, {data: 'start_time'}, {data: 'end_time'}],
+      columns: [{data: 'title'}, {data: 'start_time'}, {data: 'end_time'}
+      <% if current_user.id == @course.teacher.user.id || current_user.account.class == Student %>
+        ,{data: 'title'}
+      <% end %>
+      ],
       fnRowCallback: function( nRow, aData, iDisplayIndex ) {
-        $('td:eq(0)', nRow).html('<a href="/quizzes/' + aData.id + '/edit">' + aData.title + '</a>');
+        var now = new Date("<%= DateTime.now %>");
+        var start = new Date(aData.start_time);
+        var end = new Date(aData.end_time);
+        <% if current_user.id == @course.teacher.user.id %>
+          $('td:eq(0)', nRow).html('<a href="/quizzes/' + aData.id + '/edit">' + aData.title + '</a>');
+          if(start > now || end < now){
+            $('td:eq(3)', nRow).html('<a class="btn btn-success btn-small" href="/quizzes/'+ aData.id +'/start">Start</a>');
+          }
+          else{
+            $('td:eq(3)', nRow).html('<a class="btn btn-danger btn-small" href="/quizzes/'+ aData.id +'/end">End</a>');
+          }
+        <% elsif current_user.account.class == Student %>
+          if(start < now && end > now){
+            $('td:eq(3)', nRow).html('<a class="btn btn-success btn-small" href="/">Take</a>');
+          }
+          else{
+            $('td:eq(3)', nRow).html('<div class="btn btn-info btn-small disabled">Not Available</div>');
+          }
+        <% end %>
       }
     });
   });

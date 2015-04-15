@@ -21,6 +21,9 @@ SampleApp::Application.routes.draw do
   get 'register/:university_id', to: 'teachers#register'
   get 'teachers/:teacher_id/verify', to: 'teachers#verify'
   get 'quizzes/new/:course_id', to: 'quizzes#new'
+  get 'quizzes/:id/start', to: 'quizzes#manual_start'
+  get 'quizzes/:id/end', to: 'quizzes#manual_end'
+  get 'quizzes/delay', to: 'quizzes#delay'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
