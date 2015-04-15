@@ -3,7 +3,7 @@ class Teacher < ActiveRecord::Base
   belongs_to :university
   has_many :courses
   has_many :student_course_pairings, through: :courses
-
+  attr_accessible :user_id, :validated, :university_id
   def self.create(params)
     @teacher = Teacher.new(params)
     @teacher.save

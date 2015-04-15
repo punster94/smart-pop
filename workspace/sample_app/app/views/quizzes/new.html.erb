@@ -1,0 +1,21 @@
+<% provide(:title, 'Create New Quiz') %>
+<h1>Create New Quiz</h1>
+<div class="row">
+  <div class="span6 offset3">
+    <%= simple_nested_form_for(@quiz) do |f| %>
+      <%= f.label :title %>
+      <%= f.text_field :title %>
+
+      <%= f.label :start_time %>
+      <%= f.datetime_field :start_time %> 
+
+      <%= f.label :end_time %>
+      <%= f.datetime_field :end_time %>
+      
+      <%= render 'question_panel', f: f %>
+      <div class='centered'>
+        <%= f.submit "Create quiz", class: "bn btn-large btn-success" %>
+      </div>
+    <% end %>
+  </div>
+</div>

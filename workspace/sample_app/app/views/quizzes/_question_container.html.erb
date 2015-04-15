@@ -1,0 +1,9 @@
+<div class="form-inline panel-group">
+  <%= questions_form.label :question_text, "Question Text" %>
+  <%= questions_form.text_field :question_text %>
+  <%= render 'mc_option_panel', f: questions_form %>
+  <div class="centered">
+    </br>
+  <%= questions_form.link_to_remove 'Remove Question', class: 'btn btn-danger btn-large' %>
+  </div>
+</div>
