@@ -15,4 +15,12 @@ class Question < ActiveRecord::Base
   def correct_multiple_choice_option
     self.multiple_choice_options.where(description: multiple_choice_answer).first
   end
+
+  def percent_correct
+    correct = 0.0
+    responses.each do |response|
+      correct += 1 if response.correct?
+    end
+    100 * correct / responses.size
+  end
 end

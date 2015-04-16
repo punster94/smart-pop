@@ -22,7 +22,19 @@
 <%= javascript_tag do %>
   $(document).ready( function () {
     $('#quizList').DataTable({
-      data: <%= @course.quizzes.select("title, start_time, end_time, course_id, quizzes.id").to_json.html_safe %>,
+      <% data = [] %>
+      <% @course.quizzes.each do |quiz| %>
+        <% pair = {} %>
+        <% pair[:title] = quiz.title %>
+        <% pair[:start_time] = quiz.start_time %>
+        <% pair[:end_time] = quiz.end_time %>
+        <% pair[:course_id] = quiz.course_id %>
+        <% container = ResponseContainer.where(student_id: current_user.account.id, quiz_id: quiz.id).first %>
+        <% pair[:container_id] = container.id if container %>
+        <% pair[:id] = quiz.id %>
+        <% data.push(pair) %>
+      <% end %>
+      data: <%= data.to_json.html_safe %>,
       columns: [{data: 'title'}, {data: 'start_time'}, {data: 'end_time'}
       <% if current_user.id == @course.teacher.user.id || current_user.account.class == Student %>
         ,{data: 'title'}
@@ -34,7 +46,7 @@
         var start = new Date(aData.start_time);
         var end = new Date(aData.end_time);
         <% if current_user.id == @course.teacher.user.id %>
-          $('td:eq(0)', nRow).html('<a href="/quizzes/' + aData.id + '/edit">' + aData.title + '</a>');
+          $('td:eq(0)', nRow).html('<a href="/quizzes/' + aData.id + '/show">' + aData.title + '</a>');
           if(start > now || end < now){
             $('td:eq(3)', nRow).html('<a class="btn btn-success btn-small" href="/quizzes/'+ aData.id +'/start">Start</a>');
           }
@@ -42,6 +54,9 @@
             $('td:eq(3)', nRow).html('<a class="btn btn-danger btn-small" href="/quizzes/'+ aData.id +'/end">End</a>');
           }
         <% elsif current_user.account.class == Student %>
+          if(aData.container_id > 0){
+            $('td:eq(0)', nRow).html('<a href="/response_containers/' + aData.container_id + '/show">' + aData.title + '</a>');
+          }
           if(start < now && end > now){
             $('td:eq(3)', nRow).html('<a class="btn btn-success btn-small" href="/quizzes/'+ aData.id +'/take">Take</a>');
           }

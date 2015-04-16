@@ -1,8 +1,13 @@
 class ResponseContainersController < ApplicationController
   include SessionsHelper
   before_action :student_only, only: [:new, :create, :edit, :update]
+  before_action :after_quiz, only: [:show]
   def new
     @response_container = ResponseContainer.new
+  end
+  
+  def show
+    @response_container = ResponseContainer.find(params[:id])
   end
   
   def create
@@ -36,4 +41,17 @@ class ResponseContainersController < ApplicationController
     flash[:success] = "Responses Updated!"
     redirect_to @response_container.quiz.course
   end
+  
+  private
+    
+    def after_quiz
+      rc = ResponseContainer.find(params[:id])
+      quiz = rc.quiz
+      Time.zone = "America/New_York"
+      now = Time.zone.utc_to_local(DateTime.now)
+      unless (quiz.end_time < now && current_user.account.id == rc.student_id) || (current_user.account.class == Teacher && current_user.id == quiz.teacher.user.id)
+        flash[:error] = "Not permitted to view results."
+        redirect_to(root_url) 
+      end
+    end
 end

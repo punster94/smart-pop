@@ -27,6 +27,8 @@ SampleApp::Application.routes.draw do
   get 'quizzes/:id/end', to: 'quizzes#manual_end'
   get 'quizzes/delay', to: 'quizzes#delay'
   get 'quizzes/:id/take', to: 'quizzes#take'
+  get 'quizzes/:id/show', to: 'quizzes#show'
+  get 'response_containers/:id/show', to: 'response_containers#show'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
