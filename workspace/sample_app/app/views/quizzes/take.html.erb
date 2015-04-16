@@ -6,7 +6,7 @@
       <% @quiz.questions.each_with_index do |question, index| %>
         <% @response = Response.new %>
         <% @response = Response.where(question_id: question.id, response_container_id: @response_container.id).first if @response_container.id %>
-        <%= render 'answer_container', index: index, question: question, response: @response %>
+        <%= render 'answer_container', f: f, index: index, question: question, response: @response %>
       <% end %>
       <%= hidden_field_tag :quiz_id, @quiz.id %>
       </br>

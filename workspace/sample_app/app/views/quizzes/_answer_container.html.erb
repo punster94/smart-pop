@@ -3,13 +3,14 @@
   Question <%= index + 1 %>
   </br>
   <%= question.question_text %>
-  <%= form_for @response do |response_form| %>
+  <%= f.fields_for response, index: index do |response_form| %>
     </br>
     <table>
       <% question.multiple_choice_options.each do|multiple_choice_option| %>
         <tr>
           <td class='option_button'><%= response_form.radio_button :multiple_choice_answer, multiple_choice_option.id %></td>
           <td><%= response_form.label :multiple_choice_answer, "#{multiple_choice_option.description}" %></td>
+          <%= hidden_field_tag "#{index}_question_id".to_sym, question.id %>
         </tr>
       <% end %>
     </table>
