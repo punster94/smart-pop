@@ -1,11 +1,9 @@
 <% provide(:title, "Edit course") %>
 <h1>Update your Course</h1>
-
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@course) do |f| %>
       <%= render 'shared/course_error_messages' %>
-
       <%= f.label :course_name %>
       <%= f.text_field :course_name %>
 

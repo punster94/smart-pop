@@ -2,8 +2,11 @@ SampleApp::Application.routes.draw do
   resources :users
   resources :courses
   resources :student_course_pairings
+  resources :responses
+  resources :response_containers
   resources :sessions, only: [:new, :create, :destroy]
   resources :teachers, only: [:show]
+  resources :quizzes
   root 'static_pages#home'
   match '/signup',  to: 'users#new',            via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
@@ -19,6 +22,11 @@ SampleApp::Application.routes.draw do
   get 'student_course_pairings/:id/verify', to: 'student_course_pairings#verify'
   get 'register/:university_id', to: 'teachers#register'
   get 'teachers/:teacher_id/verify', to: 'teachers#verify'
+  get 'quizzes/new/:course_id', to: 'quizzes#new'
+  get 'quizzes/:id/start', to: 'quizzes#manual_start'
+  get 'quizzes/:id/end', to: 'quizzes#manual_end'
+  get 'quizzes/delay', to: 'quizzes#delay'
+  get 'quizzes/:id/take', to: 'quizzes#take'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

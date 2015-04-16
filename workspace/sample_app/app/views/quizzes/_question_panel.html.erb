@@ -1,0 +1,13 @@
+<div>
+  <br>
+  <h4>Questions</h4>
+  <br>
+  <div id='question_panel'>
+    <%= f.simple_fields_for :questions, html: { class: 'form-inline' } do |questions_form| %>
+      <%= render 'question_container', questions_form: questions_form %>
+      <br>
+    <% end %>
+    <%= f.link_to_add "Add New Question".html_safe, :questions, class: 'btn btn-primary btn-large options-complete', id: ' add_new_question_button' %>
+    <br>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div>
+  <br>
+  <h4>Question Options</h4>
+  <br>
+  <div id='multiple_choice_option_panel'>
+    <%= f.simple_fields_for :multiple_choice_options, html: { class: 'form-inline' } do |multiple_choice_options_form| %>
+      <%= render 'mc_option_container', multiple_choice_options_form: multiple_choice_options_form, f: f %>
+      <br>
+    <% end %>
+    <%= f.link_to_add "Add New Multiple Choice Option".html_safe, :multiple_choice_options, class: 'btn btn-primary btn-small', id: ' add_new_multiple_choice_option_button' %>
+    <br>
+  </div>
+</div>

@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
       redirect_to(root_url) unless current_user.account.class == Teacher
     end
   
+    def student_only
+      redirect_to(root_url) unless current_user.account.class == Student
+    end
+  
     def university_only
       redirect_to(root_url) unless current_user.account.class == University
     end

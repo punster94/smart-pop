@@ -1,0 +1,19 @@
+<% provide(:title, 'Take Quiz') %>
+<h1><%= @quiz.title %></h1>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@response_container) do |f| %>
+      <% @quiz.questions.each_with_index do |question, index| %>
+        <% @response = Response.new %>
+        <% @response = Response.where(question_id: question.id, response_container_id: @response_container.id).first if @response_container.id %>
+        <%= render 'answer_container', f: f, index: index, question: question, response: @response %>
+      <% end %>
+      <%= hidden_field_tag :quiz_id, @quiz.id %>
+      </br>
+      <div class='centered'>
+        <%= f.submit "Submit Answers", class: "btn btn-large btn-success" %>
+      </div>
+    <% end %>
+    </br>
+  </div>
+</div>

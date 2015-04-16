@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
               uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, length: { minimum: 6 }, allow_blank: true
+  attr_accessible :password, :email, :name, :sub, :password_confirmation, :account_type
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64
