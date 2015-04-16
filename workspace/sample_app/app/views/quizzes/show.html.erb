@@ -1,0 +1,59 @@
+<% provide(:title, "Response List") %>
+<% if current_user.id == @quiz.teacher.user.id %>
+  <%= link_to "Edit Quiz", "/quizzes/#{@quiz.id}/edit", class: "btn btn-large float-right" %>
+<% end %>
+<h1>Response Statistics</h1>
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+<% data = {} %>
+<% @quiz.questions.each do |question| %>
+  <% data[question.question_text] = question.percent_correct %>
+<% end %>
+<%= column_chart (data), min: 0, max: 100 %>
+<div class='centered'>
+  Percentage Correct
+</div>
+</br>
+<hr>
+<% @quiz.questions.each do |question| %>
+  <% data = {} %>
+  <% question.multiple_choice_options.each do |mco| %>
+    <% data[mco.description.to_sym] = mco.number_of_responses %>
+  <% end %>
+  <div class='centered'>
+    <%= question.question_text %>
+  </div>
+  <%= pie_chart (data) %>
+  </br>
+  <hr>
+<% end %>
+<table id='responseList' class="display compact">
+  <thead>
+    <tr>
+      <td><b>Student Name</b></td>
+      <td><b>Submission Time</b></td>
+      <td><b>Score</b></td>
+    </tr>
+  </thead>
+</table>
+
+<%= javascript_tag do %>
+  $(document).ready( function () {
+    $('#responseList').DataTable({
+      <% data = [] %>
+      <% @quiz.response_containers.each do |response_container| %>
+        <% pair = {} %>
+        <% pair[:student_name] = Student.find(response_container.student_id).user.name %>
+        <% pair[:submission_time] = response_container.updated_at %>
+        <% pair[:score] = "#{response_container.percent_correct}%" %>
+        <% pair[:id] = response_container.id %>
+        <% data.push(pair) %>
+      <% end %>
+      data: <%= data.to_json.html_safe %>,
+      columns: [{data: 'student_name'}, {data: 'submission_time'}, {data: 'score'}],
+      fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+        $('td:eq(0)', nRow).html('<a href="/response_containers/' + aData.id + '/show">' + aData.student_name + '</a>');
+        return nRow;
+      }
+    });
+  });
+<% end %>

@@ -6,6 +6,10 @@ class QuizzesController < ApplicationController
     @quiz.course_id = params[:course_id]
   end
   
+  def show
+    @quiz = Quiz.find(params[:id])
+  end
+  
   def create
     @quiz = Quiz.new(params[:quiz])
     @quiz.teacher_id = current_user.account.id
@@ -61,7 +65,7 @@ class QuizzesController < ApplicationController
   def update
     @quiz = Quiz.find(params[:id])
     if @quiz.update_attributes(params[:quiz])
-      redirect_to "/courses/#{@quiz.course_id}"
+      redirect_to @quiz
     else
       render 'edit'
     end

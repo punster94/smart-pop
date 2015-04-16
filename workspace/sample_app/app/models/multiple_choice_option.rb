@@ -3,4 +3,8 @@ class MultipleChoiceOption < ActiveRecord::Base
   attr_accessible :question_id, :description
   
   validates :description, presence: true
+  
+  def number_of_responses
+    question.responses.where(multiple_choice_answer: id).size
+  end
 end

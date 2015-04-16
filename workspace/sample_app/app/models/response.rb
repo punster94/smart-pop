@@ -9,4 +9,8 @@ class Response < ActiveRecord::Base
   def multiple_choice_option
     MultipleChoiceOption.find(multiple_choice_answer)
   end
+  
+  def correct?
+    question.multiple_choice_answer == MultipleChoiceOption.find(multiple_choice_answer).description
+  end
 end

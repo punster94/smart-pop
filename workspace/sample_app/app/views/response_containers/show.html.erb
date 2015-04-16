@@ -1,0 +1,33 @@
+<% provide(:title, "Answers") %>
+<% if current_user.id == @response_container.quiz.teacher.user.id %>
+  <%= link_to "Return to Response List", "/quizzes/#{@response_container.quiz.id}/show", class: "btn btn-large float-right" %>
+<% elsif current_user.account.class == Student %>
+  <%= link_to "Return to Quiz List", "/courses/#{@response_container.quiz.course.id}", class: "btn btn-large float-right" %>
+<% end %>
+<h1>Answers from <%= @response_container.student.user.name %></h1>
+<table id='answers' class="display compact">
+  <thead>
+    <tr>
+      <td><b>Question</b></td>
+      <td><b>Response</b></td>
+      <td><b>Correct?</b></td>
+    </tr>
+  </thead>
+</table>
+
+<%= javascript_tag do %>
+  $(document).ready( function () {
+    $('#answers').DataTable({
+      <% data = [] %>
+      <% @response_container.responses.each do |response| %>
+        <% pair = {} %>
+        <% pair[:question] = response.question.question_text %>
+        <% pair[:response] = response.multiple_choice_option.description %>
+        <% pair[:correct] = (response.correct?) ? "Yes" : "No" %>
+        <% data.push(pair) %>
+      <% end %>
+      data: <%= data.to_json.html_safe %>,
+      columns: [{data: 'question'}, {data: 'response'}, {data: 'correct'}]
+    });
+  });
+<% end %>
