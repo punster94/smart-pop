@@ -43,7 +43,7 @@
           }
         <% elsif current_user.account.class == Student %>
           if(start < now && end > now){
-            $('td:eq(3)', nRow).html('<a class="btn btn-success btn-small" href="/">Take</a>');
+            $('td:eq(3)', nRow).html('<a class="btn btn-success btn-small" href="/quizzes/'+ aData.id +'/take">Take</a>');
           }
           else{
             $('td:eq(3)', nRow).html('<div class="btn btn-info btn-small disabled">Not Available</div>');

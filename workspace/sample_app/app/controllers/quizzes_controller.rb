@@ -24,6 +24,18 @@ class QuizzesController < ApplicationController
     @quiz = Quiz.find(params[:id])
   end
   
+  def take
+    @quiz = Quiz.find(params[:id])
+    @response_container = ResponseContainer.where(quiz_id: @quiz.id, student_id: current_user.account.id).first
+    @response_container = ResponseContainer.new unless @response_container
+    Time.zone = "America/New_York"
+    now = Time.zone.utc_to_local(DateTime.now)
+    if now > @quiz.end_time || now < @quiz.start_time
+      flash[:error] = "Unable to take quiz at this time."
+      redirect_to current_user 
+    end
+  end
+  
   def manual_start
     Time.zone = "America/New_York"
     @quiz = Quiz.find(params[:id])

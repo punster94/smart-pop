@@ -2,6 +2,8 @@ SampleApp::Application.routes.draw do
   resources :users
   resources :courses
   resources :student_course_pairings
+  resources :responses
+  resources :response_containers
   resources :sessions, only: [:new, :create, :destroy]
   resources :teachers, only: [:show]
   resources :quizzes
@@ -24,6 +26,7 @@ SampleApp::Application.routes.draw do
   get 'quizzes/:id/start', to: 'quizzes#manual_start'
   get 'quizzes/:id/end', to: 'quizzes#manual_end'
   get 'quizzes/delay', to: 'quizzes#delay'
+  get 'quizzes/:id/take', to: 'quizzes#take'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
